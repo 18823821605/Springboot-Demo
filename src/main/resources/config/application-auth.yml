@@ -1,0 +1,11 @@
+# 拦截器资源规则URL
+interceptor:
+  front-authentication:
+    addPathPatterns: /api/**/front/**
+    excludePathPatterns:
+  admin-authentication:
+    addPathPatterns: /api/*/admin/**
+    excludePathPatterns: /api/sys-manager/admin/login
+  admin-authorization:
+    addPathPatterns: /api/*/admin/**
+    excludePathPatterns: /api/sys-manager/admin/login,/api/sys-manager/admin/updatePwd,/api/sys-manager/admin/logout,/api/sys-menu/admin/getMenuList,/api/sys-role/admin/getRoleInfo,/api/sys-menu/admin/getMenuById

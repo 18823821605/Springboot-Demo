@@ -1,0 +1,11 @@
+## 助通短信
+zhu-tong-sms:
+  username: cdty666hy
+  password: JlTdp6
+  phoneBody: 【XXX】验证码：
+  timeout: 2
+##阿里短信平台
+ali-sms:
+  accessKeyId:
+  accessKeySecret:
+  signName:

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.dlc.modules.mapper.SysRoleMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, roleName, roleNote, ctime, isFlag
+    </sql>
+
+    <select id="getRoleListByManager" resultType="com.springboot.dlc.modules.entity.SysRole">
+        SELECT ar.id,ar.roleName,ar.roleNote,ar.ctime,
+        (SELECT COUNT(1) FROM sys_manager_role amr WHERE amr.roleId = ar.id AND amr.managerId = #{managerId})isFlag
+        FROM sys_role ar
+        ORDER BY ar.ctime DESC
+    </select>
+
+</mapper>

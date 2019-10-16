@@ -1,0 +1,35 @@
+##微信相关配置
+we-chat:
+  body: 深圳维码物联
+  notifyUrl: ${web.projectPath}wcPay/notify
+  ##小程序
+  spAppId:
+  spSecrect:
+  spMchId:
+  spMchKey:
+  spCertPath:
+  ##公众平台
+  opAppId:
+  opSecrect:
+  opMchId:
+  opMchKey:
+  opCertPath:
+  ##开放平台
+  ppAppId:
+  ppSecrect:
+  ppMchId:
+  ppMchKey:
+  ppCertPath:
+
+##支付宝相关配置
+ali-pay:
+  body: 深圳维码物联
+  appId:
+  sellerId:
+  privateKey:
+  publicKey:
+  aliPublicKey:
+  notifyUrl:
+  returnUrl:
+  quiturl:
+

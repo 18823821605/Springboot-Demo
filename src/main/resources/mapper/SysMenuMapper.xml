@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.dlc.modules.mapper.SysMenuMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, interfaceName, interfaceUrl, pageUrl, fid, interfaceType, orderBy, isFlag
+    </sql>
+
+    <update id="setAuthorityByRole">
+        INSERT INTO sys_role_menu (roleId,menuId) VALUES
+        <foreach collection="menus" item="item" index="index" separator=",">
+            (#{roleId}, #{item})
+        </foreach>
+    </update>
+
+    <delete id="delAuthorityById">
+        DELETE FROM sys_role_menu
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="roleId != null and roleId != ''">
+                AND roleId = #{roleId}
+            </if>
+            <if test="menuId != null and menuId != ''">
+                AND menuId = #{menuId}
+            </if>
+        </trim>
+    </delete>
+
+    <select id="findModelerByRoleId" resultType="com.springboot.dlc.modules.entity.SysMenu">
+        SELECT
+        me.id, interfaceName, interfaceUrl, pageUrl, fid, interfaceType, orderBy,
+        (SELECT COUNT(1) FROM sys_role_menu rm WHERE rm.roleId = #{roleId} AND me.id = rm.menuId)isFlag
+        FROM sys_menu me
+        WHERE me.interfaceType = 1
+        ORDER BY me.orderBy ASC
+    </select>
+
+    <select id="getMenuListByCondition" resultType="com.springboot.dlc.modules.entity.SysMenu">
+        SELECT am.id, interfaceName, interfaceUrl, pageUrl, fid, interfaceType, orderBy
+        <if test="roleId != null and roleId != ''">
+            ,(SELECT COUNT(1) FROM sys_role_menu rm WHERE rm.roleId = #{roleId} AND am.id = rm.menuId)isFlag
+        </if>
+        <if test="managerId != null and managerId != ''">
+            ,(SELECT COUNT(1) FROM
+            (SELECT DISTINCT menuId FROM sys_manager_role amr,sys_role_menu arm WHERE amr.managerId = #{managerId} AND
+            amr.roleId = arm.roleId) aaa
+            WHERE aaa.menuId = am.id) isFlag
+        </if>
+        FROM sys_menu am WHERE am.isFlag = 1
+        <if test="fid == null">
+            AND am.interfaceType = 1
+        </if>
+        <if test="fid != null">
+            AND am.fid = #{fid}
+        </if>
+        ORDER BY am.orderBy ASC
+    </select>
+
+    <select id="getAuthoritysByManager" resultType="java.lang.String">
+        SELECT DISTINCT
+            am.interfaceUrl
+        FROM
+            sys_manager_role amr,
+            sys_role_menu arm,
+            sys_menu am
+        WHERE
+            amr.managerId = #{managerId}
+        AND amr.roleId = arm.roleId
+        AND am.id = arm.menuId
+        AND am.isFlag = 1
+        AND am.interfaceUrl IS NOT NULL
+    </select>
+
+</mapper>

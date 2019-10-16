@@ -1,0 +1,60 @@
+# 服务配置
+server:
+  port: 8080
+  undertow:
+    # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程
+    io-threads: 4
+    # 阻塞任务线程池, 当执行类似servlet请求阻塞操作, undertow会从这个线程池中取得线程,它的值设置取决于系统的负载
+    worker-threads: 20
+    # 以下的配置会影响buffer,这些buffer会用于服务器连接的IO操作,有点类似netty的池化内存管理
+    # 每块buffer的空间大小,越小的空间被利用越充分
+    buffer-size: 1024
+    # 是否分配的直接内存
+    direct-buffers: true
+# spring 相关配置
+spring:
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 200MB
+  profiles:
+    active: test
+    include: auth,pay,sms
+# jackJson指定日期格式-已替换为fastJson
+#  jackson:
+#    date-format: yyyy-MM-dd HH:mm:ss
+#    time-zone: GMT+8
+#    serialization:
+#      write-dates-as-timestamps: true
+
+# mybatis-plus相关配置
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.springboot.dlc.modules.entity
+  executor-type: simple
+  configuration:
+    auto-mapping-unknown-column-behavior: none
+    auto-mapping-behavior: partial
+    cache-enabled: true
+    call-setters-on-nulls: true
+  global-config:
+      db-config:
+        field-strategy: not_empty
+        db-type: mysql
+        id-type: id_worker
+      banner: false
+logging:
+  level:
+    com.springboot.dlc: debug
+  path: ./logs/
+
+
+
+
+
+
