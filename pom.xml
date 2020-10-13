@@ -21,7 +21,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <mybatis-plus.version>3.0.6</mybatis-plus.version>
         <druid.version>1.1.10</druid.version>
         <jjwt.version>0.7.0</jjwt.version>
