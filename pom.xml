@@ -31,7 +31,7 @@
         <commons-io.version>2.5</commons-io.version>
         <commons-lang3.version>3.5</commons-lang3.version>
         <commons-pool2.version>2.5.0</commons-pool2.version>
-        <undertow-core.version>2.0.3.Final</undertow-core.version>
+        <undertow-core.version>2.0.23.Final</undertow-core.version>
         <undertow-servlet.version>2.0.3.Final</undertow-servlet.version>
         <undertow-websockets-jsr.version>2.0.3.Final</undertow-websockets-jsr.version>
         <httpcore.version>4.4.1</httpcore.version>
